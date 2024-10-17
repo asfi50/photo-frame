@@ -1,0 +1,45 @@
+#cropperContainer {
+    max-height: 70vh;
+    height: 400px;
+    overflow: hidden;
+}
+
+.cropper-container {
+    max-height: 100%;
+    height: 100%;
+}
+
+#image {
+    max-height: 100%;
+    width: auto;
+}
+
+#resultCanvas {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 640px) {
+    .container {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    #cropperContainer {
+        height: 300px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    #cropperContainer {
+        height: 350px;
+    }
+}
+#customFrameOption img {
+    border-radius: 4px;
+    transition: border-color 0.2s ease;
+  }
+  #customFrameOption:hover img {
+    border-color: blue;
+  }
+  

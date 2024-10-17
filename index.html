@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Photo Framer - Add Custom Frames on Your Photos 
+    </title>
+
+    <!-- Meta Description (Important for SEO & Click-Through Rate) -->
+    <meta
+      name="description"
+      content="Easily create stunning, framed photos with our JnU Photo Framer. Upload your images, crop, and choose from a variety of custom frames or upload your own for!"
+    />
+
+    <!-- Keywords (Though not as critical as they used to be, still useful) -->
+    <meta
+      name="keywords"
+      content="JnU Photo Framer, custom photo frames, upload photo, crop image, create photo frames, photo framing tool, Photo Framing"
+    />
+
+    <!-- Open Graph Meta Tags (For social sharing previews like on Facebook) -->
+    <meta
+      property="og:title"
+      content="JnU Photo Framer - Create Custom Frames for Your Photos"
+    />
+    <meta
+      property="og:description"
+      content="Create beautiful framed photos. Upload your images, customize frames, and download your creations instantly!"
+    />
+    <meta
+      property="og:image"
+      content="https://itrrc.com/images/jnu-photo-framer-preview.png"
+    />
+    <!-- Replace with actual image URL -->
+    <meta property="og:url" content="https://itrrc.com/jnu-photo-framer" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags (For better Twitter sharing) -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="JnU Photo Framer - Custom Frames for Your Photos"
+    />
+    <meta
+      name="twitter:description"
+      content="Easily create stunning, framed photos for JnU Day with our user-friendly tool. Upload, crop, and frame your photos in seconds!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://itrrc.com/images/jnu-photo-framer-preview.png"
+    />
+    <!-- Replace with actual image URL -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-bold text-center mb-8">JnU Photo Framer</h1>
+      <div class="bg-white rounded-lg shadow-lg p-6">
+        <div class="mb-4">
+          <label
+            for="imageUpload"
+            class="block text-gray-700 text-sm font-bold mb-2"
+            >Upload your image:</label
+          >
+          <input type="file" id="imageUpload" accept="image/*" class="hidden" />
+          <button
+            id="uploadButton"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Select Image
+          </button>
+        </div>
+        <div id="cropperContainer" class="hidden mb-4 relative">
+          <img
+            id="image"
+            src=""
+            alt="Upload an image"
+            class="max-w-full max-h-full object-contain"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            for="customFrameUpload"
+            class="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Upload your custom frame (optional):
+          </label>
+          <input
+            type="file"
+            id="customFrameUpload"
+            accept="image/*"
+            class="hidden"
+          />
+          <button
+            id="customFrameButton"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Upload Custom Frame
+          </button>
+        </div>
+        <div id="customFrameContainer" class="hidden mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2"
+            >Custom Frame Preview:</label
+          >
+          <div
+            class="frame-option cursor-pointer"
+            id="customFrameOption"
+            data-frame="customFrame"
+          >
+            <img
+              src=""
+              alt="Custom Frame"
+              class="h-32 w-auto object-contain border-2 border-transparent rounded hover:border-blue-500"
+            />
+          </div>
+        </div>
+        <div id="frameSelector" class="hidden mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2"
+            >Select a frame:</label
+          >
+          <div
+            id="frameScrollContainer"
+            class="flex space-x-4 overflow-x-auto py-2 px-2 border border-gray-300 rounded-lg"
+          >
+            <div class="frame-option cursor-pointer" data-frame="frame1">
+              <img
+                src="frames/frame1.png"
+                alt="Standard Frame"
+                class="h-32 w-auto object-contain border-2 border-transparent rounded hover:border-blue-500"
+              />
+              <p class="text-center mt-2 text-sm">Standard Frame</p>
+            </div>
+            <div class="frame-option cursor-pointer" data-frame="frame2">
+              <img
+                src="frames/frame2.png"
+                alt="Minimal Frame"
+                class="h-32 w-auto object-contain border-2 border-transparent rounded hover:border-blue-500"
+              />
+              <p class="text-center mt-2 text-sm">Minimal Frame</p>
+            </div>
+            <div class="frame-option cursor-pointer" data-frame="frame3">
+              <img
+                src="frames/frame3.png"
+                alt="Golden Frame"
+                class="h-32 w-auto object-contain border-2 border-transparent rounded hover:border-blue-500"
+              />
+              <p class="text-center mt-2 text-sm">Golden Frame</p>
+            </div>
+            <!-- Add more frame options here -->
+          </div>
+        </div>
+
+        <div id="resultContainer" class="hidden mb-4">
+          <canvas id="resultCanvas"></canvas>
+        </div>
+        <div id="actionButtons" class="hidden">
+          <button
+            id="cropButton"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+          >
+            Crop & Frame
+          </button>
+          <button
+            id="downloadButton"
+            class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Download
+          </button>
+        </div>
+        <div id="feedback" class="mt-4 text-center text-sm"></div>
+      </div>
+
+      <!-- credit -->
+      <div class="mt-4 text-center text-sm text-gray-600">
+        <p>
+          Created by <a href="#" class="text-blue-500">Safwan</a> &
+          <a href="https://fb.com/asfi.sultan" class="text-blue-500">Asfi</a>
+        </p>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
